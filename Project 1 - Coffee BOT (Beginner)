@@ -1,0 +1,13 @@
+# Making a Coffee Shop BOT --
+# Using basic variables
+print(" Hello and Welcome to Cafe Cat \n")
+# ("\n") adds a new line to text
+#print // is a function ("") is a string
+# (name = ) is a Variable 
+name = input("What is your name? \n\n")
+menu = "\nBlack Coffee, Latte, Frappe, Hot Chocolate"
+print("\nHello " + name + " Here's a menu of what we have to offer today\n")
+print(menu)
+print("What would you like from our menu")
+order = input ()
+print (" Thank you for your order " + name + " We will be back shortly with your "  + order)
