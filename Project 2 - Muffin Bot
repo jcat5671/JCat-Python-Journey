@@ -1,0 +1,26 @@
+# intergers 
+# verifying numbers with data types with type()
+# uses int() str() 
+# Muffin Bot -- Project 2#
+
+print("Hello and Welcome to MuffinCat!")
+
+name = input("What is your name?\n")
+
+print("Hello " + name + ", thank you for coming in today. \n\n\n")
+
+menu = " Blueberry Muffin, Raspberry Muffin, Banana Muffin, Chocolate Muffin, Toffee Muffin"
+
+print( name + ", what would you like from our menu? Here is what we have to offer. \n" + menu)
+
+order =  input()
+
+price = 5
+
+quantity = input("How many would you like?\n")
+# need to convert string to integer = str(Variable)
+total = price * int(quantity)
+# need to convert integer into a string = str(Variable)
+print("Thank you, the total cost of your order is: £" + str(total))
+# add all information into last command
+print("We'll get your " + quantity + " " +  order + "s" " ready right away for you " + name)
