@@ -1,0 +1,74 @@
+import random
+
+# Define the deck
+suits = ['hearts', 'diamonds', 'clubs', 'spades']
+ranks = ['two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'jack', 'queen', 'king', 'ace']
+deck = [(rank, suit) for rank in ranks for suit in suits]
+
+# Define the value of cards
+card_values = {'two': 2, 'three': 3, 'four': 4, 'five': 5, 'six': 6, 'seven': 7, 'eight': 8, 'nine': 9, 'ten': 10, 'jack': 10, 'queen': 10, 'king': 10, 'ace': 11}
+
+# Define the game functions
+def get_hand_value(hand):
+    total_value = sum(card_values[card[0]] for card in hand)
+    num_aces = sum(1 for card in hand if card[0] == 'ace')
+    while total_value > 21 and num_aces:
+        total_value -= 10
+        num_aces -= 1
+    return total_value
+
+def deal_card(deck):
+    return deck.pop()
+
+def new_deck():
+    return [(rank, suit) for rank in ranks for suit in suits]
+
+# Initialize the game
+player_hands = [[]]
+dealer_hand = []
+game_deck = new_deck()
+
+# Deal the initial cards
+player_hands[0].append(deal_card(game_deck))
+dealer_hand.append(deal_card(game_deck))
+player_hands[0].append(deal_card(game_deck))
+dealer_hand.append(deal_card(game_deck))
+
+# Print the initial hands
+print("Player's hand:", player_hands[0])
+print("Dealer's hand:", dealer_hand[0], "and [hidden]")
+
+# Player's turn
+for i in range(len(player_hands)):
+    while True:
+        choice = input("Player " + str(i+1) + ", do you want to hit, stand, or split? ")
+        if choice.lower() == "hit":
+            player_hands[i].append(deal_card(game_deck))
+            print("Player " + str(i+1) + "'s hand:", player_hands[i])
+            if get_hand_value(player_hands[i]) > 21:
+                print("Player " + str(i+1) + " busts. Dealer wins.")
+                break
+        elif choice.lower() == "stand":
+            break
+        elif choice.lower() == "split" and len(player_hands) < 4 and len(player_hands[i]) == 2 and player_hands[i][0][0] == player_hands[i][1][0]:
+            # Split the hand
+            player_hands.append([player_hands[i].pop(), deal_card(game_deck)])
+            print("Player " + str(i+1) + "'s hands:", player_hands)
+        else:
+            print("Invalid choice. Please try again.")
+
+# Dealer's turn
+if all(get_hand_value(hand) > 21 for hand in player_hands):
+    # All players busted, skip the dealer's turn
+    pass
+else:
+    print("Dealer's hand:", dealer_hand)
+    while get_hand_value(dealer_hand) < 17:
+        dealer_hand.append(deal_card(game_deck))
+        print("Dealer's hand:", dealer_hand)
+        if get_hand_value(dealer_hand) > 21:
+            print("Dealer busts. Player wins.")
+            break
+
+# Determine the winner
+for i, hand
